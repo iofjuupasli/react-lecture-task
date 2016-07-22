@@ -16,9 +16,9 @@ export default class NewListForm extends React.Component {
     return (
       <div>
         <input onChange = { this.onListNameChange } value = { this.state.listName }/>
-        <button onClick = { () => {
-          this.props.onListCreate(this.state.listName)
-        } }>Add list</button>
+        { this.state.listName && (
+          <button onClick = {() => { this.props.onListCreate(this.state.listName) }}>Add list</button>)
+        }
       </div>
     )
   }

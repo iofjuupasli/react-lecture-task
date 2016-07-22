@@ -1,11 +1,6 @@
 import React from 'react';
+import Card from './Card';
 
-const Card = (props) => (
-  <div className="card">
-    <p contentEditable={true} onInput={ (event) => { props.onEditCard(event.target.innerText, props.listName, props.text) } }>{ props.text }</p>
-    <button onClick={ () => {props.onRemoveCard(props.listName, props.text)} }>Remove</button>
-  </div>
-)
 
 export default class List extends React.Component {
   state = {
@@ -19,19 +14,34 @@ export default class List extends React.Component {
   }
 
   render() {
+
+    const cards = this.props.cards.map(card => (
+      <li>
+        <Card
+          text={ card }
+          listName={ this.props.name }
+          onRemoveCard={this.props.onRemoveCard}
+          onEditCard={this.props.onEditCard}/>
+      </li>
+    ))
+
     return (
       <div>
-        <ul className="list">
+        <ul className="list" onDrop={(event) => { console.log(event.target, 'drop') }}>
           <span>{ this.props.name }</span>
-          { this.props.cards.map(card => (
-            <li><Card text={ card }
-            listName={ this.props.name }
-            onRemoveCard={this.props.onRemoveCard}
-            onEditCard={this.props.onEditCard}/></li>
-          )) }
+          { cards }
         </ul>
-        <input onChange={ this.onCardTextChange } value={this.state.cardText}/>
-        <button onClick={() => { this.props.onAddCard(this.props.name, this.state.cardText)}}>Add card</button>
+        <input
+          onChange={ this.onCardTextChange }
+          value={this.state.cardText}/>
+        <button onClick={() => {
+              this.props.onAddCard(
+                this.props.name,
+                his.state.cardText
+              )
+        }}>
+            Add card
+        </button>
         <button onClick={() => { this.props.onRemoveList(this.props.name) }}>RemoveList</button>
       </div>
     )
