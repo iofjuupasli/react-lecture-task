@@ -1,0 +1,30 @@
+.list {
+  position: relative;
+    width: 300px;
+    float: left;
+    border: 1px solid #c7c4c4;
+    background: #d8d6d6;
+    padding: 5px;
+    color: #3c3939;
+    margin: 10px;
+}
+.card {
+  position: relative;
+    color: white;
+    margin-top: 5px;
+    background: #696565;
+    padding: 5px;
+}
+.card p {
+    margin: 0;
+}
+
+.form{
+      margin-left: 10px;
+}
+
+.remove{
+  position: absolute;
+top: 0;
+right: 5px;
+}
