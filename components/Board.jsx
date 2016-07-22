@@ -24,10 +24,18 @@ export default class Board extends React.Component {
         e.preventDefault();
     };
 
+    onRemoveList = i => {
+      this.setState({
+          lists: this.state.lists.filter((item,index) => {
+            return index != i;
+          }),
+      });
+    }
+
     render() {
         let lists = [];
         for (let i = 0; i < this.state.lists.length; i++) {
-            lists.push(< List listInfo = { this.state.lists[i] } />);
+            lists.push(< List listInfo = { this.state.lists[i] } removeList = {() => this.onRemoveList(i)}/>);
         }
         return (
             <div>
