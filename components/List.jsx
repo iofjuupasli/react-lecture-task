@@ -23,11 +23,16 @@ export default class List extends React.Component {
   }
 
   render() {
+    const listStyle = {
+      display: 'table-cell',
+      padding: '2%',
+      width: '23%'
+    }
     let cards = null;
     if (this.props.cards)
      cards = this.props.cards.map(c => (<Card key={c} name={c}/>) );
     return (
-      <div>
+      <div style={listStyle}>
         <h1>{this.props.name}</h1>
         <Input onChange={this.onNewCardNameChanged} value={this.state.newCardName}/>
         <Button onClick={this.onCreateNewCard}>Add Task</Button>
