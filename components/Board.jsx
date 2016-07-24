@@ -12,6 +12,15 @@ function insertCard(lists, listName, cardName) {
   });
 }
 
+function deleteCard(lists, listName, cardName) {
+  return lists.map((l)=> {
+    if (l.name === listName) {
+      return { ...l, cards: l.cards.filter((c) => c === cardName ? false : true) };
+    }
+    return l;
+  });
+}
+
 export default class Board extends React.Component {
   state = {
     lists: [],
@@ -44,6 +53,12 @@ export default class Board extends React.Component {
     })
   }
 
+  onDeleteCard = (listName, cardName) => {
+    this.setState({
+      lists: deleteCard(this.state.lists, listName, cardName)
+    })
+  }
+
   maxCountPages = () => {
     return Math.floor(this.state.lists.length / 4);
   }
@@ -64,8 +79,9 @@ export default class Board extends React.Component {
       <div>
         <NewListForm onNewList={this.onNewList}></NewListForm>
         <Lists lists={this.state.lists} pageNum={this.state.pageNum} offset={this.state.offset}
-          onNewCard={this.onNewCard} onDeleteList={this.onDeleteList} maxPages={this.state.maxPages}
-          onNextPageClick={this.onNextPageClick} onPrevPageClick={this.onPrevPageClick}></Lists>
+          onNewCard={this.onNewCard} onDeleteList={this.onDeleteList} onDeleteCard={this.onDeleteCard}
+           maxPages={this.state.maxPages} onNextPageClick={this.onNextPageClick}
+           onPrevPageClick={this.onPrevPageClick}></Lists>
       </div>
     );
   }
