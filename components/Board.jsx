@@ -21,6 +21,22 @@ function deleteCard(lists, listName, cardName) {
   });
 }
 
+function renameCard(lists, listName, newCardName, oldCardName) {
+  return lists.map((l)=> {
+    if (l.name === listName) {
+      return { ...l,
+        cards: l.cards.map((c) => {
+          if (c === oldCardName) {
+            return newCardName;
+          }
+          return c;
+        })
+      };
+    }
+    return l;
+  });
+}
+
 export default class Board extends React.Component {
   state = {
     lists: [],
@@ -59,6 +75,13 @@ export default class Board extends React.Component {
     })
   }
 
+  onRenameCard = (listName, newCardName, oldCardName) => {
+    console.log(`${listName} ${newCardName} ${oldCardName}`);
+    this.setState({
+      lists: renameCard(this.state.lists, listName, newCardName, oldCardName),
+    })
+  }
+
   maxCountPages = () => {
     return Math.floor(this.state.lists.length / 4);
   }
@@ -74,13 +97,14 @@ export default class Board extends React.Component {
       pageNum: this.state.maxPages >= this.state.pageNum ? this.state.pageNum + 1 : this.state.pageNum,
     })
   }
+
   render() {
     return (
       <div>
         <NewListForm onNewList={this.onNewList}></NewListForm>
         <Lists lists={this.state.lists} pageNum={this.state.pageNum} offset={this.state.offset}
           onNewCard={this.onNewCard} onDeleteList={this.onDeleteList} onDeleteCard={this.onDeleteCard}
-           maxPages={this.state.maxPages} onNextPageClick={this.onNextPageClick}
+           maxPages={this.state.maxPages} onNextPageClick={this.onNextPageClick} onRenameCard={this.onRenameCard}
            onPrevPageClick={this.onPrevPageClick}></Lists>
       </div>
     );

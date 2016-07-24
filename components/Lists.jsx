@@ -40,7 +40,7 @@ export default class Lists extends React.Component  {
           if ((i >= pageNum * offset) && (i < (pageNum + 1) * offset)) {
            return (<List key={l.name} name={l.name} onNewCard={this.props.onNewCard}
             onDeleteList={this.props.onDeleteList} onDeleteCard={this.props.onDeleteCard}
-            cards={l.cards}/>)
+            onRenameCard={this.props.onRenameCard} cards={l.cards}/>)
           }
           })}
       </div>

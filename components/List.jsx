@@ -22,9 +22,14 @@ export default class List extends React.Component {
     this.props.onNewCard(this.props.name, this.state.newCardName);
   }
 
-  onDeleteCardinList = (cardName) => {
+  onDeleteCard = (cardName) => {
     this.props.onDeleteCard(this.props.name, cardName);
   }
+
+  onRenameCard = (newCardName, oldCardName) => {
+    this.props.onRenameCard(this.props.name, newCardName, oldCardName);
+  }
+
   render() {
     const listStyle = {
       display: 'table-cell',
@@ -34,7 +39,8 @@ export default class List extends React.Component {
     }
     let cards = null;
     if (this.props.cards)
-     cards = this.props.cards.map(c => (<Card key={c} name={c} onDeleteCardinList={this.onDeleteCardinList}/>) );
+     cards = this.props.cards.map(c => (<Card key={c} name={c}
+       onDeleteCardinList={this.onDeleteCard} onRenameCardinList={this.onRenameCard}/>) );
     return (
       <div style={listStyle}>
         <h1>{this.props.name}</h1>
