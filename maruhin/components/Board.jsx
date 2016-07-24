@@ -1,51 +1,30 @@
 import React from 'react';
+import List from './List.jsx';
+import ListForm from './ListForm.jsx';
 
 export default class Board extends React.Component {
     state = {
-      added: false,
       lists:[]
     };
-    addList = () => {
-      //this.setState({added: true});
-      //alert('adding list');
-      this.setState({
-            added: true
-        });
+    addList = (listName) => {
+      let arr = this.state.lists;
+      arr.push(listName);
+      this.setState({lists:arr});
     };
-    renderAddedListContainer(){
-      return (
-        <div className = "board">
-          <div>
-            <h1>Add a new list of tasks...</h1>
-            <input placeholder="create a new task"/>
-            <button onClick={this.addList}
-              className="add-list">Add list</button>
-          </div>
-          <hr/>
-          <div className = "list">
-            <p>Some list added</p>
-          </div>
-        </div>
+    eachList = (list,i) =>{
+      return(
+        <List key={i}
+          index={i}
+        >{list}</List>
       )
     };
-    renderAddListContainer(){
-      return (
-        <div className = "board">
-          <div>
-            <h1>Add a new list of tasks...</h1>
-            <input placeholder="create a new task"/>
-            <button onClick={this.addList}
-              className="add-list">Add list</button>
-          </div>
-        </div>
-      )
-    };
+
     render() {
-        if (this.state.added) {
-          return this.renderAddedListContainer();
-        }
-        else {
-          return this.renderAddListContainer();
-        }
+        return(
+          <div className = "board">
+            <ListForm createList = {this.addList}/>
+            {this.state.lists.map(this.eachList)}
+          </div>
+        )
     }
 }
