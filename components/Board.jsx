@@ -22,6 +22,17 @@ export default class Board extends React.Component {
     })
   }
 
+  onDeleteList = listName => {
+    this.setState({
+      lists: this.state.lists.filter((l) => {
+        if (l.name === listName) {
+          return false;
+        }
+        return true;
+      })
+    })
+  }
+
   onNewCard = (listName, cardName) => {
     this.setState({
       lists: insertCard(this.state.lists, listName, cardName),
@@ -32,7 +43,7 @@ export default class Board extends React.Component {
     return (
       <div>
         <NewListForm onNewList={this.onNewList}></NewListForm>
-        {this.state.lists.map((l) => (<List key={l.name} name={l.name} onNewCard={this.onNewCard} cards={l.cards}/>) )}
+        {this.state.lists.map((l) => (<List key={l.name} name={l.name} onNewCard={this.onNewCard} onDeleteList={this.onDeleteList} cards={l.cards}/>) )}
       </div>
     );
   }

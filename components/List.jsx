@@ -14,6 +14,10 @@ export default class List extends React.Component {
     });
   }
 
+  onDeleteList = () => {
+    this.props.onDeleteList(this.props.name);
+  }
+
   onCreateNewCard = () => {
     this.props.onNewCard(this.props.name, this.state.newCardName);
   }
@@ -27,6 +31,7 @@ export default class List extends React.Component {
         <h1>{this.props.name}</h1>
         <Input onChange={this.onNewCardNameChanged} value={this.state.newCardName}/>
         <Button onClick={this.onCreateNewCard}>Add Task</Button>
+        <Button onClick={this.onDeleteList}>Delete List</Button>
         {cards}
       </div>
     )
