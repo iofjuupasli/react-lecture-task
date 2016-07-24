@@ -6,6 +6,9 @@ export default class List extends React.Component {
     state = {
       tasks: [],
     };
+    componentDidMount = () =>{
+      $(this.getDOMNode()).draggable();
+    };
     addTask = (taskName) => {
       let arr = this.state.tasks;
       arr.push(taskName);
@@ -18,6 +21,9 @@ export default class List extends React.Component {
         >{task}</Task>
       )
     };
+    remove = () => {
+      this.props.onRemove(this.props.index);
+    };
 
     render() {
       return (
@@ -27,6 +33,9 @@ export default class List extends React.Component {
             <TaskForm createTask = {this.addTask}/>
             {this.state.tasks.map(this.eachTask)}
           </div>
+          <span>
+            <button onClick={this.remove}>Remove List</button>
+          </span>
         </div>
       )
     }

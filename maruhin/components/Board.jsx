@@ -11,10 +11,16 @@ export default class Board extends React.Component {
       arr.push(listName);
       this.setState({lists:arr});
     };
+    removeList = (i) => {
+      let arr = this.state.lists;
+      arr.splice(i,1);
+      this.setState({lists: arr});
+    };
     eachList = (list,i) =>{
       return(
         <List key={i}
           index={i}
+          onRemove = {this.removeList}
         >{list}</List>
       )
     };
