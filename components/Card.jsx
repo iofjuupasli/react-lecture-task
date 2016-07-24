@@ -24,8 +24,10 @@ export default class Card extends React.Component {
   render() {
     return (
       <div style={{backgroundColor: '#b7b7b7'}}>
-      <h3>{this.props.name}</h3>
-      <Button onClick={this.onDeleteCard}>Delete Card</Button>
+      <div>
+        <h3>{this.props.name}</h3>
+        <Button onClick={this.onDeleteCard}>Delete Card</Button>
+      </div>
       <Input onChange={this.onRenameCardNameChanged} value={this.props.name}/>
       <Button onClick={this.onRenameCard}>Rename Task</Button>
       </div>

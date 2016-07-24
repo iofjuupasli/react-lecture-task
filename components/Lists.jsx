@@ -13,7 +13,7 @@ export default class Lists extends React.Component  {
 
   render() {
     const listsStyle = {
-      display: 'table'
+
     };
     const paginationItemStyle = {
       display: 'inline-block',
@@ -35,15 +35,21 @@ export default class Lists extends React.Component  {
           <h4 style={paginationItemStyle}>{pageNum + 1}...{this.props.maxPages + 1}</h4>
           <Button style={paginationItemStyle} onClick={this.onNextPageClick}>Next</Button>
         </div>
-      <div style={listsStyle}>
-        {this.props.lists.map((l, i) => {
-          if ((i >= pageNum * offset) && (i < (pageNum + 1) * offset)) {
-           return (<List key={l.name} name={l.name} onNewCard={this.props.onNewCard}
-            onDeleteList={this.props.onDeleteList} onDeleteCard={this.props.onDeleteCard}
-            onRenameCard={this.props.onRenameCard} cards={l.cards}/>)
-          }
+        <ul style={listsStyle}>
+          {this.props.lists.map((l, i) => {
+            if ((i >= pageNum * offset) && (i < (pageNum + 1) * offset)) {
+              return (<List
+                key={l.name}
+                name={l.name}
+                onNewCard={this.props.onNewCard}
+                onDeleteList={this.props.onDeleteList}
+                onRenameList={this.props.onRenameList}
+                onDeleteCard={this.props.onDeleteCard}
+                onRenameCard={this.props.onRenameCard}
+                cards={l.cards}/>)
+            }
           })}
-      </div>
+        </ul>
       </div>
     );
   }

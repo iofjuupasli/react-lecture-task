@@ -5,7 +5,8 @@ import Button from './Button';
 
 export default class List extends React.Component {
   state = {
-    newCardName: ''
+    newCardName: '',
+    listNameChanged: ''
   }
 
   onNewCardNameChanged = (e) => {
@@ -16,6 +17,16 @@ export default class List extends React.Component {
 
   onDeleteList = () => {
     this.props.onDeleteList(this.props.name);
+  }
+
+  onRenameListNameChanged = (e) => {
+    this.setState({
+        listNameChanged: e.target.value,
+    });
+  }
+
+  onRenameList = () => {
+    this.props.onRenameList(this.state.listNameChanged, this.props.name);
   }
 
   onCreateNewCard = () => {
@@ -32,23 +43,31 @@ export default class List extends React.Component {
 
   render() {
     const listStyle = {
-      display: 'table-cell',
       padding: '2%',
       width: '23%',
-      backgroundColor: '#e6e6e6'
+      backgroundColor: '#e6e6e6',
+      marginLeft: '2%',
+      float: 'left',
+      listStyle: 'none'
     }
     let cards = null;
     if (this.props.cards)
      cards = this.props.cards.map(c => (<Card key={c} name={c}
        onDeleteCardinList={this.onDeleteCard} onRenameCardinList={this.onRenameCard}/>) );
     return (
-      <div style={listStyle}>
-        <h1>{this.props.name}</h1>
+      <li style={listStyle}>
+        <div>
+          <h1>{this.props.name}</h1>
+          <Button onClick={this.onDeleteList}>Delete List</Button>
+        </div>
+        <div>
+          <Input onChange={this.onRenameListNameChanged} value={this.state.listNameChanged}/>
+          <Button onClick={this.onRenameList}>Rename List</Button>
+        </div>
         <Input onChange={this.onNewCardNameChanged} value={this.state.newCardName}/>
         <Button onClick={this.onCreateNewCard}>Add Task</Button>
-        <Button onClick={this.onDeleteList}>Delete List</Button>
         {cards}
-      </div>
+      </li>
     )
   }
 }
